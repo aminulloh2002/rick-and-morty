@@ -1,11 +1,16 @@
 // sidenote: snippet rfc for create new component
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query"
 import Character from "./Character"
 
 
 export default function Characters() {
   const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    // 👇️ scroll to top on page load
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+  }, [page]);
 
   const fetchCharacter = async ({ queryKey }) => {
     // this query key is the key on useQuery (["characters", page])
