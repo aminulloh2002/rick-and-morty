@@ -1,1 +1,1 @@
-# ReactQueryPractice
+# Learn React Query
