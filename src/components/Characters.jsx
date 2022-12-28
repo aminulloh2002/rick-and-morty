@@ -37,7 +37,7 @@ export default function Characters() {
         <Character key={character.id} character={character} />
       ))}
 
-      <div>
+      <div className="pagination">
         <button
           disabled={page === 1}
           onClick={changePageHandler.bind(null, false)}
