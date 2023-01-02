@@ -1,26 +1,23 @@
-import { useState } from 'react'
+import { useContext } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import {ReactQueryDevtools} from 'react-query/devtools'
+import { ReactQueryDevtools } from 'react-query/devtools'
 import './App.css'
 import Characters from './components/Characters'
 import DarkModeToggle from './components/DarkModeToggle'
+import ThemeContext from './store/theme-context'
 
 function App() {
-  const [isDark, setIsDark] = useState(true);
   const queryClient = new QueryClient()
-
-  const toggleModeHandler = (isDark)=>{
-    setIsDark(isDark)
-  }
+  const themeCtx = useContext(ThemeContext)
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className={`App ${isDark ? 'dark' : 'light'}`}>
+      <div className={`App ${themeCtx.isDarkMode ? 'dark' : 'light'}`}>
         <div className="container">
           <h1>Rick and Morty</h1>
           <Characters />
         </div>
-        <DarkModeToggle toggleMode={toggleModeHandler} />
+        <DarkModeToggle />
       </div>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

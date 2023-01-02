@@ -1,18 +1,20 @@
-import { useState } from "react";
-import {FaSun, FaMoon} from "react-icons/fa"
+import { useContext } from "react";
+import { FaSun, FaMoon } from "react-icons/fa"
+import ThemeContext from "../store/theme-context";
 
-const DarkModeToggle = (props) => {
-    const [isDark, setIsDark] = useState(true);
+const DarkModeToggle = () => {
+    const themeCtx = useContext(ThemeContext);
+
+    const { isDarkMode } = themeCtx;
 
     const toggleDarkModeHandler = () => {
-        let mode = !isDark
-        setIsDark(mode)
-        props.toggleMode(mode)
+        const mode = !isDarkMode
+        themeCtx.toggleDarkMode(mode)
     }
 
     return (
-        <div onClick={toggleDarkModeHandler} className={`theme-toggle theme-${isDark ? 'dark' : 'light'}`}>
-            { isDark ? <FaMoon/> : <FaSun/>}
+        <div onClick={toggleDarkModeHandler} className={`theme-toggle theme-${isDarkMode ? 'dark' : 'light'}`}>
+            {isDarkMode ? <FaMoon /> : <FaSun />}
         </div>
     );
 }
