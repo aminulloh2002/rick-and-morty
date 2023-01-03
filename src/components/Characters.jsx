@@ -2,32 +2,47 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query"
 import Character from "./Character"
+import Search from "./Search";
 
 
 export default function Characters() {
   const [page, setPage] = useState(1);
+  const [name, setName] = useState("");
 
   useEffect(() => {
     // 👇️ scroll to top on page load
-    window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   }, [page]);
 
   const fetchCharacter = async ({ queryKey }) => {
     // this query key is the key on useQuery (["characters", page])
-    const response = await fetch(`https://rickandmortyapi.com/api/character?page=${queryKey[1]}`)
+    const response = await fetch(`https://rickandmortyapi.com/api/character?page=${queryKey[1]}&name=${queryKey[2]}`)
+    if (!response.ok) {
+      throw new Error("Not Found..")
+    }
     return response.json()
   }
 
-  const { data, isLoading, isError } = useQuery(["characters", page], fetchCharacter, {
-    keepPreviousData:true
+  const { data, isLoading, isError } = useQuery(["characters", page, name], fetchCharacter, {
+    // keepPreviousData: true,
+    retry: 0
   })
 
-  if (isLoading) {
-    return <div>Loading...</div>
+  const getCharByName = (name) => {
+    setName(name)
   }
-  
+
+  if (isLoading) {
+    return <div className="characters">
+      <Search getCharByName={getCharByName} />
+      <div className="text">Loading...</div>
+    </div>
+  }
+
   if (isError) {
-    return <div>Loading</div>
+    return <div className="characters">
+      <Search getCharByName={getCharByName} /> <div className="text">Character not found</div>
+    </div>
   }
 
   const changePageHandler = (isNext) => {
@@ -38,6 +53,8 @@ export default function Characters() {
 
   return (
     <div className="characters">
+      <Search getCharByName={getCharByName} />
+
       {data.results.map(character => (
         <Character key={character.id} character={character} />
       ))}
