@@ -1,36 +1,40 @@
-.App {
-  /* background-color: rgb(36, 40, 46); */
-  min-height: 100vh;
-}
-
-.dark {
-  background-color: rgb(36, 40, 46);
+:root {
+  --dark-bg: rgb(36, 40, 46);
+  --light-bg: #adadad;
+  --dark-text: #fff;
+  --light-text: rgb(61, 61, 61);
+  --light-card-bg: #fefefe;
+  --dark-card-bg: rgb(59, 62, 67);
 }
 
 .light {
-  background-color: #c7c7c7;
+  --bg: var(--light-bg);
+  --text: var(--light-text);
+  --card-bg: var(--light-card-bg);
+}
+
+.dark {
+  --bg: var(--dark-bg);
+  --text: var(--dark-text);
+  --card-bg: var(--dark-card-bg);
+}
+
+.App {
+  min-height: 100vh;
 }
 
 .container {
-  /* margin: 0 auto; */
+  background-color: var(--bg);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* flex:1; */
-}
-
-.dark>.container>h1 {
-  color: white;
-}
-
-.light>.container>h1 {
-  color: rgb(61, 61, 61);
 }
 
 h1 {
   padding: 2.5rem 0;
   font-size: 5rem;
+  color: var(--text);
 }
 
 h3 {
@@ -58,15 +62,6 @@ h3 {
   }
 }
 
-
-.dark>.container>.characters>.card {
-  background: rgb(59, 62, 67);
-}
-
-.light>.container>.characters>.card {
-  background: #fefefe;
-}
-
 .card {
   border-radius: 0.5rem;
   overflow: hidden;
@@ -74,7 +69,7 @@ h3 {
   margin-right: 1rem;
   display: flex;
   width: 100%;
-  /* flex: 1; */
+  background-color: var(--card-bg);
 }
 
 @media screen and (min-width:1024px) {
@@ -82,7 +77,6 @@ h3 {
     width: 47%;
   }
 }
-
 
 .card img {
   width: 15rem;
@@ -116,14 +110,10 @@ h3 {
 }
 
 .title {
-  color: lightgray;
+  color: var(--text);
   font-size: 1.2rem;
   margin-top: .7rem;
   /* margin: 0.1rem 0; */
-}
-
-.light>.container>.characters>.card>.text-container>.title {
-  color: rgb(49, 49, 49);
 }
 
 button {
@@ -135,15 +125,9 @@ button {
   cursor: pointer;
 }
 
-.dark>.container>.characters>div>button {
-  background-color: #a0a0a0;
-  border: none;
-}
-
-.light>.container>.characters>div>button {
-  background-color: #ffffff;
-  color: #4b4b4b;
-  /* border: 1px solid #dfdfdf; */
+button {
+  background-color: var(--card-bg);
+  color: var(--text);
   border: none;
 }
 
@@ -154,7 +138,7 @@ button {
 
 .theme-toggle {
   position: absolute;
-  font-size: 2rem;
+  font-size: 2.5rem;
   cursor: pointer;
   top: 1rem;
   right: 2rem;
@@ -165,7 +149,6 @@ button {
 }
 
 .theme-light {
-  /* color: rgb(255, 191, 73); */
   color: orange;
 }
 
@@ -191,13 +174,9 @@ span.status.unknown {
 }
 
 .text {
-  color: white;
+  color: var(--text);
   font-size: 1.2rem;
   font-weight: 600;
-}
-
-.light>.container>.characters>.text {
-  color: rgb(59, 62, 67);
 }
 
 .status-text {
@@ -227,7 +206,3 @@ span.status.unknown {
   font-weight: 600;
   text-transform: capitalize;
 }
-
-/* .form-control>input::placeholder {
-  color: rgb(214, 214, 214);
-} */
